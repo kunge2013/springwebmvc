@@ -1,10 +1,13 @@
 package com.kframe.springbootdemo;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class TestController {
-
-//	DispatcherServlet
+	
+	@GetMapping("/hello")
+	public String hello() {
+		return "hello";
+	}
 }
