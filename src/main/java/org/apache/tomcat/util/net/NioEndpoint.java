@@ -738,7 +738,9 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                     keyCount > 0 ? selector.selectedKeys().iterator() : null;
                 // Walk through the collection of ready keys and dispatch
                 // any active event.
-            	log.info("iterator size === " + selector.selectedKeys().size());
+                    if (selector.selectedKeys().size() > 0) {
+                    	log.info("iterator size === " + selector.selectedKeys().size());
+                    }
                 while (iterator != null && iterator.hasNext()) {
                     SelectionKey sk = iterator.next();
                     NioSocketWrapper socketWrapper = (NioSocketWrapper) sk.attachment();
