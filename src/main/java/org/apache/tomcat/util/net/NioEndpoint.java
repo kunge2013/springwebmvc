@@ -686,13 +686,17 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
             }
         }
 
+        int i = 0;
         /**
+         * 
+         * @describle 将套接字添加到轮询器的后台线程，检查轮询器是否触发事件，并在事件发生时将关联的套接字交给适当的处理器。
          * The background thread that adds sockets to the Poller, checks the
          * poller for triggered events and hands the associated socket off to an
          * appropriate processor as events occur.
          */
         @Override
         public void run() {
+        	log.info("i value === " + i++);
             // Loop until destroy() is called
             while (true) {
 
@@ -734,6 +738,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
                     keyCount > 0 ? selector.selectedKeys().iterator() : null;
                 // Walk through the collection of ready keys and dispatch
                 // any active event.
+            	log.info("iterator size === " + selector.selectedKeys().size());
                 while (iterator != null && iterator.hasNext()) {
                     SelectionKey sk = iterator.next();
                     NioSocketWrapper socketWrapper = (NioSocketWrapper) sk.attachment();
