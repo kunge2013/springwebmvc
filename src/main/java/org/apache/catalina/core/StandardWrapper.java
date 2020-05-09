@@ -1009,6 +1009,7 @@ public class StandardWrapper extends ContainerBase
 
 
     /**
+     * 第一次获取servlet 创建新的servlet 对象实例
      * Load and initialize an instance of this servlet, if there is not already
      * at least one initialized instance.  This can be used, for example, to
      * load servlets that are marked in the deployment descriptor to be loaded
@@ -1037,6 +1038,7 @@ public class StandardWrapper extends ContainerBase
                     (sm.getString("standardWrapper.notClass", getName()));
             }
 
+            // TODO 获取父容器 管理对象
             InstanceManager instanceManager = ((StandardContext)getParent()).getInstanceManager();
             try {
                 servlet = (Servlet) instanceManager.newInstance(servletClass);
@@ -1086,6 +1088,9 @@ public class StandardWrapper extends ContainerBase
                 singleThreadModel = true;
             }
 
+            /**
+             * TODO 初始化servlet 对象
+             */
             initServlet(servlet);
 
             fireContainerEvent("load", this);
@@ -1108,6 +1113,11 @@ public class StandardWrapper extends ContainerBase
     }
 
 
+    /**
+     * 初始化servlet 对象
+     * @param servlet
+     * @throws ServletException
+     */
     private synchronized void initServlet(Servlet servlet)
             throws ServletException {
 
