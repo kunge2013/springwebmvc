@@ -78,6 +78,7 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * @describle 配置tomcat 相关信息，添加springmvc 相关配置
  * {@link AbstractServletWebServerFactory} that can be used to create
  * {@link TomcatWebServer}s. Can be initialized using Spring's
  * {@link ServletContextInitializer}s or Tomcat {@link LifecycleListener}s.
@@ -169,6 +170,9 @@ public class TomcatServletWebServerFactory extends AbstractServletWebServerFacto
 				: new ArrayList<>();
 	}
 
+	/**
+	 * @describle 创建webserver 相关容器,以及tomcat 连接服务端
+	 */
 	@Override
 	public WebServer getWebServer(ServletContextInitializer... initializers) {
 		if (this.disableMBeanRegistry) {
@@ -227,6 +231,9 @@ public class TomcatServletWebServerFactory extends AbstractServletWebServerFacto
 		loader.setDelegate(true);
 		context.setLoader(loader);
 		if (isRegisterDefaultServlet()) {
+			/**
+			 * @descripbe 添加springmvc dispatchServlet 相关配置
+			 */
 			addDefaultServlet(context);
 		}
 		if (shouldRegisterJspServlet()) {
@@ -261,6 +268,10 @@ public class TomcatServletWebServerFactory extends AbstractServletWebServerFacto
 		context.getJarScanner().setJarScanFilter(filter);
 	}
 
+	/**
+	 * @describle context 绑定 springmvc DefaultServlet，
+	 * @param context
+	 */
 	private void addDefaultServlet(Context context) {
 		Wrapper defaultServlet = context.createWrapper();
 		defaultServlet.setName("default");
@@ -727,6 +738,9 @@ public class TomcatServletWebServerFactory extends AbstractServletWebServerFacto
 			this.context = context;
 		}
 
+		/**
+		 * 执行执行完毕后事件，加载相关jar包文件
+		 */
 		@Override
 		public void lifecycleEvent(LifecycleEvent event) {
 			if (event.getType().equals(Lifecycle.CONFIGURE_START_EVENT)) {
