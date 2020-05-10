@@ -461,6 +461,9 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
     }
 
 
+    /**
+     * @describle 该方法一直会阻塞，等到有连接简历就唤醒
+     */
     @Override
     protected SocketChannel serverSocketAccept() throws Exception {
         return serverSock.accept();
@@ -504,6 +507,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
 
         @Override
         public void run() {
+        	log.info("PollerEvent interestOps ======" + interestOps);
             if (interestOps == OP_REGISTER) {
                 try {
                     socket.getIOChannel().register(socket.getSocketWrapper().getPoller().getSelector(), SelectionKey.OP_READ, socket.getSocketWrapper());
