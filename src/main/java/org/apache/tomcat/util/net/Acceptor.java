@@ -94,6 +94,7 @@ public class Acceptor<U> implements Runnable {
                     // Accept the next incoming connection from the server
                     // socket
                     socket = endpoint.serverSocketAccept();
+                    log.info("socket is notify success !");
                 } catch (Exception ioe) {
                     // We didn't get a socket
                     endpoint.countDownConnection();
@@ -113,6 +114,9 @@ public class Acceptor<U> implements Runnable {
                 if (endpoint.isRunning() && !endpoint.isPaused()) {
                     // setSocketOptions() will hand the socket off to
                     // an appropriate processor if successful
+                	/**
+                	 *@describle  此处添加socket channel 监听事件
+                	 */
                     if (!endpoint.setSocketOptions(socket)) {
                         endpoint.closeSocket(socket);
                     }

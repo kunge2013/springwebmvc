@@ -384,6 +384,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel,SocketChannel> 
 
 
     /**
+     * @describle 绑定 socketchannel 对象 
      * Process the specified connection.
      * @param socket The socket channel
      * @return <code>true</code> if the socket was correctly configured

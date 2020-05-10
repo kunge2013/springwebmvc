@@ -77,10 +77,17 @@ public class Connector extends LifecycleMBeanBase  {
     }
 
 
+    /**
+     * @describle 实例化connector 对象
+     * @param protocol
+     */
     public Connector(String protocol) {
         boolean aprConnector = AprLifecycleListener.isAprAvailable() &&
                 AprLifecycleListener.getUseAprConnector();
 
+        /**
+         * 默认是 org.apache.coyote.http11.Http11NioProtocol
+         */
         if ("HTTP/1.1".equals(protocol) || protocol == null) {
             if (aprConnector) {
                 protocolHandlerClassName = "org.apache.coyote.http11.Http11AprProtocol";
@@ -97,6 +104,9 @@ public class Connector extends LifecycleMBeanBase  {
             protocolHandlerClassName = protocol;
         }
 
+        /**
+         * @describle 实例化协议处理器  默认是NioEndpoint
+         */
         // Instantiate protocol handler
         ProtocolHandler p = null;
         try {

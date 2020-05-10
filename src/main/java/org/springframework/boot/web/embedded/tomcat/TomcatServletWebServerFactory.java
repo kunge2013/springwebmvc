@@ -108,6 +108,7 @@ public class TomcatServletWebServerFactory extends AbstractServletWebServerFacto
 
 	/**
 	 * The class name of default protocol used.
+	 * @describle springboot 默认使用的是 org.apache.coyote.http11.Http11NioProtocol协议 ---> NioEndPoint
 	 */
 	public static final String DEFAULT_PROTOCOL = "org.apache.coyote.http11.Http11NioProtocol";
 
